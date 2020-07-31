@@ -26,7 +26,7 @@ function signIn() {
 function signOut() {
   // Sign out of Firebase.
   firebase.auth().signOut();
-}
+} 
 
 // Initiate firebase auth.
 function initFirebaseAuth() {
@@ -51,8 +51,9 @@ function isUserSignedIn() {
 
 // Saves a new message on the Cloud Firestore.
 function saveMessage(messageText) {
+
   // Add a new message entry to the Firebase database.
-  return firebase.firestore().collection('client4').add({
+  return firebase.firestore().collection('client1').add({
     name: getUserName(),
     text: messageText,
     profilePicUrl: getProfilePicUrl(),
@@ -62,11 +63,49 @@ function saveMessage(messageText) {
   });
 }
 
+function clientOne(){
+  messageContainer.removeAttribute('hidden');
+  messageContainerTwo.setAttribute('hidden', true);
+  messageContainerThree.setAttribute('hidden', true);
+  messageContainerFour.setAttribute('hidden', true);
+  messageContainerFive.setAttribute('hidden', true);
+
+}
+function clientTwo(){
+  messageContainer.setAttribute('hidden', true);
+  messageContainerTwo.removeAttribute('hidden');
+  messageContainerThree.setAttribute('hidden', true);
+  messageContainerFour.setAttribute('hidden', true);
+  messageContainerFive.setAttribute('hidden', true);
+}
+
+function clientThree(){
+  messageContainer.setAttribute('hidden', true);
+  messageContainerTwo.setAttribute('hidden', true);
+  messageContainerThree.removeAttribute('hidden');
+  messageContainerFour.setAttribute('hidden', true);
+  messageContainerFive.setAttribute('hidden', true);
+}
+
+function clientFour(){
+  messageContainer.setAttribute('hidden', true);
+  messageContainerTwo.setAttribute('hidden', true);
+  messageContainerThree.setAttribute('hidden', true);
+  messageContainerFour.removeAttribute('hidden');
+  messageContainerFive.setAttribute('hidden', true);
+}
+function clientFive(){
+  messageContainer.setAttribute('hidden', true);
+  messageContainerTwo.setAttribute('hidden', true);
+  messageContainerThree.setAttribute('hidden', true);
+  messageContainerFour.setAttribute('hidden', true);
+  messageContainerFive.removeAttribute('hidden');
+}
+
 // Loads chat messages history and listens for upcoming ones.
 function loadMessages(string) {
   // Create the query to load the last 12 messages and listen for new ones.
-  var query = firebase.firestore().collection(string).orderBy('timestamp', 'desc').limit(12);
-  
+  var query = firebase.firestore().collection(string).orderBy('timestamp','desc').limit(12);
   // Start listening to the query.
   query.onSnapshot(function(snapshot) {
     snapshot.docChanges().forEach(function(change) {
@@ -81,50 +120,21 @@ function loadMessages(string) {
   });
 }
 
-function endConversation(string) {
-  // Create the query to load the last 12 messages and listen for new ones.
-  var query = firebase.firestore().collection(string).orderBy('timestamp', 'desc').limit(12);
-  
-  // Start listening to the query.
-  query.onSnapshot(function(snapshot) {
-    snapshot.docChanges().forEach(function(change) {
-      if (change.type === 'removed') {
-        deleteMessage(change.doc.id);
-      } else {
-        var message = change.doc.data();
-        displayMessage(change.doc.id, message.timestamp, message.name,
-                      message.text, message.profilePicUrl, message.imageUrl);
-      }
-    });
-  });
+
+function endConversation1(){
+//end conversation with client
+messageContainer.setAttribute('hidden', true);
+
 }
 
-// Saves a new message containing an image in Firebase.
-// This first saves the image in Firebase storage.
-function saveImageMessage(file) {
-  // 1 - We add a message with a loading icon that will get updated with the shared image.
-  firebase.firestore().collection('messages').delete({
-    name: getUserName(),
-    imageUrl: LOADING_IMAGE_URL,
-    profilePicUrl: getProfilePicUrl(),
-    timestamp: firebase.firestore.FieldValue.serverTimestamp()
-  }).then(function(messageRef) {
-    // 2 - Upload the image to Cloud Storage.
-    var filePath = firebase.auth().currentUser.uid + '/' + messageRef.id + '/' + file.name;
-    return firebase.storage().ref(filePath).put(file).then(function(fileSnapshot) {
-      // 3 - Generate a public URL for the file.
-      return fileSnapshot.ref.getDownloadURL().then((url) => {
-        // 4 - Update the chat message placeholder with the image’s URL.
-        return messageRef.update({
-          imageUrl: url,
-          storageUri: fileSnapshot.metadata.fullPath
-        });
-      });
-    });
-  }).catch(function(error) {
-    console.error('There was an error uploading a file to Cloud Storage:', error);
-  });
+function deleteCollection(path) {
+  firebase.firestore().collection(path).listDocuments().then(val => {
+      val.map((val) => {
+          val.delete()
+      })
+  })
 }
+
 
 
 // Saves the messaging device token to the datastore.
@@ -371,6 +381,11 @@ checkSetup();
 // Shortcuts to DOM Elements.
 var clientes = 'clean';
 var messageListElement = document.getElementById('messages');
+var messageContainer = document.getElementById('messages-card');
+var messageContainerTwo = document.getElementById('messages-card2');
+var messageContainerThree = document.getElementById('messages-card3');
+var messageContainerFour = document.getElementById('messages-card4');
+var messageContainerFive = document.getElementById('messages-card5');
 var messageFormElement = document.getElementById('message-form');
 var messageInputElement = document.getElementById('message');
 var submitButtonElement = document.getElementById('submit');
@@ -382,6 +397,7 @@ var userNameElement = document.getElementById('user-name');
 var signInButtonElement = document.getElementById('sign-in');
 var signOutButtonElement = document.getElementById('sign-out');
 var signInSnackbarElement = document.getElementById('must-signin-snackbar');
+
 
 // Saves message on form submit.
 messageFormElement.addEventListener('submit', onMessageFormSubmit);
