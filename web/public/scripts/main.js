@@ -52,7 +52,7 @@ function isUserSignedIn() {
 // Saves a new message on the Cloud Firestore.
 function saveMessage(messageText) {
   // Add a new message entry to the Firebase database.
-  return firebase.firestore().collection('clean').add({
+  return firebase.firestore().collection('client4').add({
     name: getUserName(),
     text: messageText,
     profilePicUrl: getProfilePicUrl(),
@@ -63,9 +63,27 @@ function saveMessage(messageText) {
 }
 
 // Loads chat messages history and listens for upcoming ones.
-function loadMessages() {
+function loadMessages(string) {
   // Create the query to load the last 12 messages and listen for new ones.
-  var query = firebase.firestore().collection('clean').orderBy('timestamp', 'desc').limit(12);
+  var query = firebase.firestore().collection(string).orderBy('timestamp', 'desc').limit(12);
+  
+  // Start listening to the query.
+  query.onSnapshot(function(snapshot) {
+    snapshot.docChanges().forEach(function(change) {
+      if (change.type === 'removed') {
+        deleteMessage(change.doc.id);
+      } else {
+        var message = change.doc.data();
+        displayMessage(change.doc.id, message.timestamp, message.name,
+                      message.text, message.profilePicUrl, message.imageUrl);
+      }
+    });
+  });
+}
+
+function endConversation(string) {
+  // Create the query to load the last 12 messages and listen for new ones.
+  var query = firebase.firestore().collection(string).orderBy('timestamp', 'desc').limit(12);
   
   // Start listening to the query.
   query.onSnapshot(function(snapshot) {
@@ -107,6 +125,7 @@ function saveImageMessage(file) {
     console.error('There was an error uploading a file to Cloud Storage:', error);
   });
 }
+
 
 // Saves the messaging device token to the datastore.
 function saveMessagingDeviceToken() {
@@ -350,6 +369,7 @@ function checkSetup() {
 checkSetup();
 
 // Shortcuts to DOM Elements.
+var clientes = 'clean';
 var messageListElement = document.getElementById('messages');
 var messageFormElement = document.getElementById('message-form');
 var messageInputElement = document.getElementById('message');

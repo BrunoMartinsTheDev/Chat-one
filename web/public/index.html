@@ -86,28 +86,31 @@
             </button>
           </form>
           <form id="image-form" action=>
-            <input id="mediaCapture" type="file";>
-            <button id="submitImage" title="Encerrar esta conversa." class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--amber-400 mdl-color-text--white">
+            <input id="mediaCapture" type="button";>
+            <button id="submitImage" onclick="loadMessages('clean')" title="Encerrar esta conversa." class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--amber-400 mdl-color-text--white">
               <i class="material-icons">clear</i>
             </button>
           </form>
         </div>
       </div>
 
+      
       <div id="messages-card" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--6-col-desktop">
         <div class="mdl-card__supporting-text mdl-color-text--grey-600">
           <div class="ClientList">
-            <button type="button" id="Client" onclick="client1()">Cliente 1</button>
-            <button type="button" id="Client" onclick="client2()">Cliente 2</button>
-            <button type="button" id="Client" onclick="client3()">Cliente 3</button>
-            <button type="button" id="Client" onclick="client4()">Cliente 4</button>
-            <button type="button" id="Client" onclick="client5()">Cliente 5</button>
+            <button type="button" id="client1" onclick="loadMessages('client1')">Vendedor 1</button>
+            <button type="button" id="client2" onclick="loadMessages('client2')">Vendedor 2</button>
+            <button type="button" id="client3" onclick="loadMessages('client3')">Vendedor 3</button>
+            <button type="button" id="client4" onclick="loadMessages('client4')">Vendedor 4</button>
+            <button type="button" id="client5" onclick="loadMessages('client5')">Vendedor 5</button>
           </div>
         </div>
       </div>
 
 
     </div>
+
+
   </main>
 </div>
 
