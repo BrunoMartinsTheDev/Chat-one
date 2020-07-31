@@ -1,8 +1,8 @@
 {
-  "name": "Friendly Chat",
-  "short_name": "Friendly Chat",
+  "name": "Chat One",
+  "short_name": "Chat One",
   "start_url": "/index.html",
   "display": "standalone",
-  "orientation": "portrait",
+  "orientation": "landscape",
   "gcm_sender_id": "103953800507"
 }

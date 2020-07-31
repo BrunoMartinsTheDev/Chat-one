@@ -20,6 +20,7 @@ html, body {
 main, #messages-card {
   height: 100%;
   padding-bottom: 0;
+  border-radius: 30px;
 }
 #messages-card-container {
   height: calc(100% - 35px);
@@ -47,10 +48,39 @@ main, #messages-card {
 }
 .mdl-card__supporting-text {
   width: auto;
+  left: 0;
   height: 100%;
   padding-top: 0;
   padding-bottom: 0;
 }
+
+.ClientList {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+}
+
+button[type="button"]{
+  height: 80px;
+  cursor: pointer;
+  align-content: center;
+  align-items: center;
+  text-align: center;
+  text-size-adjust: 30px;
+  font-size: 40px;
+  background-color: rgb(61, 137, 224);
+  color: white;
+  margin: 30px;
+  border-radius: 18px;
+}
+
+button:hover{
+  background-color: rgba(2, 137, 209, 0.658)
+}
+
+
 #messages {
   overflow-y: auto;
   margin-bottom: 10px;
@@ -126,6 +156,8 @@ main, #messages-card {
 .mdl-card {
   background: linear-gradient(white, #f9f9f9);
   justify-content: space-between;
+  align-content: center;
+
 }
 #user-container {
   position: absolute;
