@@ -124,6 +124,7 @@ function loadMessages(string) {
 function endConversation1(){
 //end conversation with client
 messageContainer.setAttribute('hidden', true);
+window.location.reload();
 
 }
 
