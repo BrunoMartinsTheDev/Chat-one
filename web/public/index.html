@@ -72,7 +72,7 @@
     <div id="messages-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
 
       <!-- Messages container -->
-      <div hidden id="messages-card" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--6-col-desktop">
+      <div  id="messages-card" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--6-col-desktop">
         <div class="mdl-card__supporting-text mdl-color-text--grey-600">
           <div id="messages">
           </div>
@@ -94,110 +94,15 @@
         </div>
       </div>
 
-      <div hidden id="messages-card2" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--6-col-desktop">
-        <div class="mdl-card__supporting-text mdl-color-text--grey-600">
-          <div id="messages">
-          </div>
-          <form id="message-form" action="#">
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="text" id="message" autocomplete="off">
-              <label class="mdl-textfield__label" for="message">Message...</label>
-            </div>
-            <button id="submit" disabled type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-              Enviar
-            </button>
-          </form>
-          <form id="image-form" action=>
-            <input id="mediaCapture" type="button";>
-            <button id="submitImage" onclick="endConversation2()" title="Encerrar esta conversa." class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--amber-400 mdl-color-text--white">
-              <i class="material-icons">clear</i>
-            </button>
-          </form>
-        </div>
-      </div>
-
-
-      <div hidden id="messages-card3" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--6-col-desktop">
-        <div class="mdl-card__supporting-text mdl-color-text--grey-600">
-          <div id="messages">
-          </div>
-          <form id="message-form" action="#">
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="text" id="message" autocomplete="off">
-              <label class="mdl-textfield__label" for="message">Message...</label>
-            </div>
-            <button id="submit" disabled type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-              Enviar
-            </button>
-          </form>
-          <form id="image-form" action=>
-            <input id="mediaCapture" type="button";>
-            <button id="submitImage" onclick="endConversation3()" title="Encerrar esta conversa." class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--amber-400 mdl-color-text--white">
-              <i class="material-icons">clear</i>
-            </button>
-          </form>
-        </div>
-      </div>
-
-
-      <div hidden id="messages-card4" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--6-col-desktop">
-        <div class="mdl-card__supporting-text mdl-color-text--grey-600">
-          <div id="messages">
-          </div>
-          <form id="message-form" action="#">
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="text" id="message" autocomplete="off">
-              <label class="mdl-textfield__label" for="message">Message...</label>
-            </div>
-            <button id="submit" disabled type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-              Enviar
-            </button>
-          </form>
-          <form id="image-form" action=>
-            <input id="mediaCapture" type="button";>
-            <button id="submitImage" onclick="endConversation4()" title="Encerrar esta conversa." class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--amber-400 mdl-color-text--white">
-              <i class="material-icons">clear</i>
-            </button>
-          </form>
-        </div>
-      </div>
-
-
-      <div hidden id="messages-card5" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--6-col-desktop">
-        <div class="mdl-card__supporting-text mdl-color-text--grey-600">
-          <div id="messages">
-          </div>
-          <form id="message-form" action="#">
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="text" id="message" autocomplete="off">
-              <label class="mdl-textfield__label" for="message">Message...</label>
-            </div>
-            <button id="submit" disabled type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-              Enviar
-            </button>
-          </form>
-          <form id="image-form" action=>
-            <input id="mediaCapture" type="button";>
-            <button id="submitImage" onclick="endConversation5()" title="Encerrar esta conversa." class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--amber-400 mdl-color-text--white">
-              <i class="material-icons">clear</i>
-            </button>
-          </form>
-        </div>
-      </div>
-
-
-
-      
-
 
       <div  id="messages-card" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--6-col-desktop">
         <div class="mdl-card__supporting-text mdl-color-text--grey-600">
           <div class="ClientList">
-            <button type="button" id="client1" onclick="loadMessages('client1') ; clientOne()">Vendedor 1</button>
-            <button type="button" id="client2" onclick="loadMessages('client2') ; clientTwo()">Em Breve</button>
-            <button type="button" id="client3" onclick="loadMessages('client3') ; clientThree()">Em Breve</button>
-            <button type="button" id="client4" onclick="loadMessages('client4') ; clientFour()">Em Breve</button>
-            <button type="button" id="client5" onclick="loadMessages('client5') ; clientFive()">Em Breve</button>
+            <button type="button" id="client1" onclick="loadMessages('client1') ; getCollection1()">Vendedor 1</button>
+            <button type="button" id="client2" onclick="loadMessages('client2') ; getCollection2()">Vendedor 2</button>
+            <button type="button" id="client3" onclick="loadMessages('client3') ; getCollection3()">Vendedor 3</button>
+            <button type="button" id="client4" onclick="loadMessages('client4') ; getCollection4()">Vendedor 4</button>
+            <button type="button" id="client5" onclick="loadMessages('client5') ; getCollection5()">Vendedor 5</button>
           </div>
         </div>
       </div>

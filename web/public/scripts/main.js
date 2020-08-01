@@ -49,11 +49,29 @@ function isUserSignedIn() {
   return !!firebase.auth().currentUser;
 }
 
+var string;
+
+function getCollection1() {
+  string = 'client1'
+ }
+ function getCollection2() {
+  string = 'client2'
+ }
+ function getCollection3() {
+  string = 'client3'
+ }
+ function getCollection4() {
+  string = 'client4'
+ }
+ function getCollection5() {
+  string = 'client5'
+ }
+
 // Saves a new message on the Cloud Firestore.
 function saveMessage(messageText) {
 
   // Add a new message entry to the Firebase database.
-  return firebase.firestore().collection('client1').add({
+    return firebase.firestore().collection(string).add({
     name: getUserName(),
     text: messageText,
     profilePicUrl: getProfilePicUrl(),
@@ -63,44 +81,6 @@ function saveMessage(messageText) {
   });
 }
 
-function clientOne(){
-  messageContainer.removeAttribute('hidden');
-  messageContainerTwo.setAttribute('hidden', true);
-  messageContainerThree.setAttribute('hidden', true);
-  messageContainerFour.setAttribute('hidden', true);
-  messageContainerFive.setAttribute('hidden', true);
-
-}
-function clientTwo(){
-  messageContainer.setAttribute('hidden', true);
-  messageContainerTwo.removeAttribute('hidden');
-  messageContainerThree.setAttribute('hidden', true);
-  messageContainerFour.setAttribute('hidden', true);
-  messageContainerFive.setAttribute('hidden', true);
-}
-
-function clientThree(){
-  messageContainer.setAttribute('hidden', true);
-  messageContainerTwo.setAttribute('hidden', true);
-  messageContainerThree.removeAttribute('hidden');
-  messageContainerFour.setAttribute('hidden', true);
-  messageContainerFive.setAttribute('hidden', true);
-}
-
-function clientFour(){
-  messageContainer.setAttribute('hidden', true);
-  messageContainerTwo.setAttribute('hidden', true);
-  messageContainerThree.setAttribute('hidden', true);
-  messageContainerFour.removeAttribute('hidden');
-  messageContainerFive.setAttribute('hidden', true);
-}
-function clientFive(){
-  messageContainer.setAttribute('hidden', true);
-  messageContainerTwo.setAttribute('hidden', true);
-  messageContainerThree.setAttribute('hidden', true);
-  messageContainerFour.setAttribute('hidden', true);
-  messageContainerFive.removeAttribute('hidden');
-}
 
 // Loads chat messages history and listens for upcoming ones.
 function loadMessages(string) {
