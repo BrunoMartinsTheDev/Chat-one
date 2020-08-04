@@ -108,12 +108,8 @@ window.location.reload();
 
 }
 
-function deleteCollection(path) {
-  firebase.firestore().collection(path).listDocuments().then(val => {
-      val.map((val) => {
-          val.delete()
-      })
-  })
+function deleteCollection() {
+    return  db.collection(string).doc('pycja3cFVTkVyONq8Nwy').delete();
 }
 
 
