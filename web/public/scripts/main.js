@@ -1,18 +1,3 @@
-/**
- * Copyright 2015 Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 'use strict';
 
 // Signs-in Friendly Chat.
@@ -87,6 +72,8 @@ function loadMessages(string) {
   // Create the query to load the last 12 messages and listen for new ones.
   var query = firebase.firestore().collection(string).orderBy('timestamp','desc').limit(12);
   // Start listening to the query.
+
+  
   query.onSnapshot(function(snapshot) {
     snapshot.docChanges().forEach(function(change) {
       if (change.type === 'removed') {
@@ -102,14 +89,19 @@ function loadMessages(string) {
 
 
 function endConversation1(){
-//end conversation with client
-messageContainer.setAttribute('hidden', true);
-window.location.reload();
 
+return firebase.firestore().collection(string).add({
+  name: '--RELATORIO',
+  text: 'Você encerrou está conversa, aguarde seu relatório!',
+  timestamp: firebase.firestore.FieldValue.serverTimestamp()
+}).catch(function(error) {
+  console.error('Error writing new message to Firebase Database', error);
+}); 
 }
 
-function deleteCollection() {
-    return  db.collection(string).doc('pycja3cFVTkVyONq8Nwy').delete();
+
+function reloadPage(){
+  window.location.reload();
 }
 
 
