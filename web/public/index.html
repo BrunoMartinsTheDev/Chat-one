@@ -1,17 +1,5 @@
 <!doctype html>
-<!--
-  Copyright 2015 Google Inc. All rights reserved.
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-      https://www.apache.org/licenses/LICENSE-2.0
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License
--->
-<html lang="en">
+<html lang="pt">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -87,7 +75,7 @@
           </form>
           <form id="image-form" action=>
             <input id="mediaCapture" type="button";>
-            <button id="submitImage" onclick="endConversation1() ; deleteCollection()" title="Encerrar esta conversa." class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--amber-400 mdl-color-text--white">
+            <button id="submitImage" onclick="endConversation1()" title="Encerrar esta conversa." class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--amber-400 mdl-color-text--white">
               <i class="material-icons">clear</i>
             </button>
           </form>
@@ -102,7 +90,7 @@
             <button type="button" id="client2" onclick="loadMessages('client2') ; getCollection2()">Vendedor 2</button>
             <button type="button" id="client3" onclick="loadMessages('client3') ; getCollection3()">Vendedor 3</button>
             <button type="button" id="client4" onclick="loadMessages('client4') ; getCollection4()">Vendedor 4</button>
-            <button type="button" id="client5" onclick="loadMessages('client5') ; getCollection5()">Vendedor 5</button>
+            <button type="button" id="client5" onclick="loadMessages('client5') ; getCollection5() ; reloadMessage()">Vendedor 5</button>
           </div>
         </div>
       </div>

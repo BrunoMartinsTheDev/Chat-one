@@ -69,10 +69,11 @@ function saveMessage(messageText) {
 
 // Loads chat messages history and listens for upcoming ones.
 function loadMessages(string) {
+  var node = document.getElementById('messages');
+  node.innerHTML = "";
   // Create the query to load the last 12 messages and listen for new ones.
   var query = firebase.firestore().collection(string).orderBy('timestamp','desc').limit(12);
   // Start listening to the query.
-
   
   query.onSnapshot(function(snapshot) {
     snapshot.docChanges().forEach(function(change) {
@@ -96,12 +97,7 @@ return firebase.firestore().collection(string).add({
   timestamp: firebase.firestore.FieldValue.serverTimestamp()
 }).catch(function(error) {
   console.error('Error writing new message to Firebase Database', error);
-}); 
-}
-
-
-function reloadPage(){
-  window.location.reload();
+});
 }
 
 
@@ -141,6 +137,7 @@ function onMediaFileSelected(event) {
 
   // Clear the selection in the file picker input.
   imageFormElement.reset();
+  
 
   // Check if the file is an image.
   if (!file.type.match('image.*')) {
@@ -253,6 +250,7 @@ function deleteMessage(id) {
     div.parentNode.removeChild(div);
   }
 }
+
 
 function createAndInsertMessage(id, timestamp) {
   const container = document.createElement('div');
