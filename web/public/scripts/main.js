@@ -54,24 +54,46 @@ function getCollection1() {
 
 function loginRoom(){
   const db = firebase.firestore();
+    
+  db.collection('logincontrol').add({
+    name: getUserName(),
+    text: 'login',
+    profilePicUrl: getProfilePicUrl(),
+    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+  }).catch(function(error) {
+    console.error('Error writing new message to Firebase Database', error);
+  });
 
-    return db.collection('logincontrol').add({
-      name: getUserName(),
+    db.collection(getUserName()+'1').add({
       text: 'login',
-      profilePicUrl: getProfilePicUrl(),
       timestamp: firebase.firestore.FieldValue.serverTimestamp()
     }).catch(function(error) {
       console.error('Error writing new message to Firebase Database', error);
     });
-}
 
-function logoutRoom(){
-  const db = firebase.firestore();
+    db.collection(getUserName()+'2').add({
+      text: 'login',
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    }).catch(function(error) {
+      console.error('Error writing new message to Firebase Database', error);
+    });
 
-    return db.collection('logincontrol').add({
-      name: getUserName(),
-      text: 'logout',
-      profilePicUrl: getProfilePicUrl(),
+    db.collection(getUserName()+'3').add({
+      text: 'login',
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    }).catch(function(error) {
+      console.error('Error writing new message to Firebase Database', error);
+    });
+
+    db.collection(getUserName()+'4').add({
+      text: 'login',
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    }).catch(function(error) {
+      console.error('Error writing new message to Firebase Database', error);
+    });
+
+    db.collection(getUserName()+'5').add({
+      text: 'login',
       timestamp: firebase.firestore.FieldValue.serverTimestamp()
     }).catch(function(error) {
       console.error('Error writing new message to Firebase Database', error);
@@ -103,7 +125,7 @@ function loadMessages() {
   
   query.onSnapshot(function(snapshot) {
     snapshot.docChanges().forEach(function(change) {
-      if (change.type === 'removed') {
+      if (change.type === 'removed' || change.doc.data().text === 'login') {
         deleteMessage(change.doc.id);
       } 
       else{
