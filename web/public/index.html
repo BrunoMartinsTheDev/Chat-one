@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="description" content="Chat One Contact Assistant">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chat One</title>
+  <title>ChatOne</title>
 
   <!-- Disable tap highlight on IE -->
   <meta name="msapplication-tap-highlight" content="no">
@@ -41,7 +41,7 @@
   <header class="mdl-layout__header mdl-color-text--white mdl-color--light-blue-700">
     <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-grid">
       <div class="mdl-layout__header-row mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
-        <h3><i class="material-icons">chat_bubble_outline</i> Chat One</h3>
+        <h3><i class="material-icons">chat_bubble_outline</i> ChatOne</h3>
       </div>
       <div id="user-container">
         <div hidden id="user-pic"></div>
@@ -86,11 +86,11 @@
       <div  id="messages-card" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--6-col-desktop">
         <div class="mdl-card__supporting-text mdl-color-text--grey-600">
           <div class="ClientList">
-            <button type="button" id="client1" onclick="loadMessages('client1') ; getCollection1()">Vendedor 1</button>
-            <button type="button" id="client2" onclick="loadMessages('client2') ; getCollection2()">Vendedor 2</button>
-            <button type="button" id="client3" onclick="loadMessages('client3') ; getCollection3()">Vendedor 3</button>
-            <button type="button" id="client4" onclick="loadMessages('client4') ; getCollection4()">Vendedor 4</button>
-            <button type="button" id="client5" onclick="loadMessages('client5') ; getCollection5() ; reloadMessage()">Vendedor 5</button>
+            <button type="button" id="client1" onclick="getCollection1() ; loadMessages()">Vendedor 1</button>
+            <button type="button" id="client2" onclick="getCollection2() ; loadMessages()">Vendedor 2</button>
+            <button type="button" id="client3" onclick="getCollection3() ; loadMessages()">Vendedor 3</button>
+            <button type="button" id="client4" onclick="getCollection4() ; loadMessages()">Vendedor 4</button>
+            <button type="button" id="client5" onclick="getCollection5() ; loadMessages()">Vendedor 5</button>
           </div>
         </div>
       </div>

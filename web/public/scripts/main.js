@@ -37,20 +37,46 @@ function isUserSignedIn() {
 var string;
 
 function getCollection1() {
-  string = 'client1'
- }
+  string = getUserName()+'1';
+}
  function getCollection2() {
-  string = 'client2'
+  string = getUserName()+'2';
  }
  function getCollection3() {
-  string = 'client3'
+  string = getUserName()+'3';
  }
  function getCollection4() {
-  string = 'client4'
+  string = getUserName()+'4';
  }
  function getCollection5() {
-  string = 'client5'
+  string = getUserName()+'5';
  }
+
+function loginRoom(){
+  const db = firebase.firestore();
+
+    return db.collection('logincontrol').add({
+      name: getUserName(),
+      text: 'login',
+      profilePicUrl: getProfilePicUrl(),
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    }).catch(function(error) {
+      console.error('Error writing new message to Firebase Database', error);
+    });
+}
+
+function logoutRoom(){
+  const db = firebase.firestore();
+
+    return db.collection('logincontrol').add({
+      name: getUserName(),
+      text: 'logout',
+      profilePicUrl: getProfilePicUrl(),
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    }).catch(function(error) {
+      console.error('Error writing new message to Firebase Database', error);
+    });
+}
 
 // Saves a new message on the Cloud Firestore.
 function saveMessage(messageText) {
@@ -68,7 +94,7 @@ function saveMessage(messageText) {
 
 
 // Loads chat messages history and listens for upcoming ones.
-function loadMessages(string) {
+function loadMessages() {
   var node = document.getElementById('messages');
   node.innerHTML = "";
   // Create the query to load the last 12 messages and listen for new ones.
@@ -79,13 +105,15 @@ function loadMessages(string) {
     snapshot.docChanges().forEach(function(change) {
       if (change.type === 'removed') {
         deleteMessage(change.doc.id);
-      } else {
+      } 
+      else{
         var message = change.doc.data();
         displayMessage(change.doc.id, message.timestamp, message.name,
                       message.text, message.profilePicUrl, message.imageUrl);
       }
     });
   });
+
 }
 
 
@@ -173,6 +201,8 @@ function authStateObserver(user) {
     // Get the signed-in user's profile pic and name.
     var profilePicUrl = getProfilePicUrl();
     var userName = getUserName();
+
+    loginRoom();
 
     // Set the user's profile pic and name.
     userPicElement.style.backgroundImage = 'url(' + addSizeToGoogleProfilePic(profilePicUrl) + ')';
