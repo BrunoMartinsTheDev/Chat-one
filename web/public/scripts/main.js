@@ -33,7 +33,7 @@ function getUserName() {
 function isUserSignedIn() {
   return !!firebase.auth().currentUser;
 }
-
+var getnumber;
 var string;
 
 function getCollection1() {
@@ -99,12 +99,49 @@ function loginRoom(){
       console.error('Error writing new message to Firebase Database', error);
     });
 }
+var getnumber;
+function getNumber(){
+  var query = firebase.firestore().collection(string);
+  query.onSnapshot(function(snapshot){
+    snapshot.docChanges().forEach(function(change){
+      if(change.doc.data().whatsapp === 'wpp'){
+        getnumber = change.doc.data().name;
+      }
+    });
+  });
+  return getnumber;
+}
+
+function sendToWpp(){
+    
+  var query = firebase.firestore().collection(string).orderBy('timestamp', 'desc').limit(5);
+    
+    query.onSnapshot(function(snapshot){
+      snapshot.docChanges().forEach(function(change){
+        if(change.doc.data().to === 'whatsapp'){
+          console.log(getNumber()+' enviaria: '+change.doc.data().text)
+          const accountSid = 'ACaadc87f8b76f27ae737abf22591006a6';
+          const authToken = 'c9cc11a3e519ee3748c80720c5b3e5a5';  
+          const client = require('twilio')(accountSid, authToken);
+          client.messages
+            .create({
+                from: 'whatsapp:+14155238886',
+                body: change.doc.data().text,
+                to: getNumber(),
+                })
+                .then(message => console.log(message.sid));
+
+          }
+      });
+    });
+}
 
 // Saves a new message on the Cloud Firestore.
 function saveMessage(messageText) {
 
   // Add a new message entry to the Firebase database.
     return firebase.firestore().collection(string).add({
+    to: 'whatsapp',  
     name: getUserName(),
     text: messageText,
     profilePicUrl: getProfilePicUrl(),
@@ -132,6 +169,9 @@ function loadMessages() {
         var message = change.doc.data();
         displayMessage(change.doc.id, message.timestamp, message.name,
                       message.text, message.profilePicUrl, message.imageUrl);
+      }
+      if (change.doc.data().to === 'whatsapp'){
+        sendToWpp();
       }
     });
   });
@@ -442,3 +482,4 @@ firebase.performance();
 
 // We load currently existing chat messages and listen to new ones.
 loadMessages();
+
