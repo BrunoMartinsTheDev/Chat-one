@@ -133,9 +133,6 @@ function saveMessage(messageText) {
     profilePicUrl: getProfilePicUrl(),
     timestamp: firebase.firestore.FieldValue.serverTimestamp()
   })
-  .then(() => {
-    return sendToWpp(phoneNumber, messageText);
-  })
   .catch(function(error) {
     console.error('Error writing new message to Firebase Database', error);
   });
@@ -237,14 +234,19 @@ function onMediaFileSelected(event) {
 // Triggered when the send new message form is submitted.
 function onMessageFormSubmit(e) {
   e.preventDefault();
+  let message = messageInputElement.value;
   // Check that the user entered a message and is signed in.
-  if (messageInputElement.value && checkSignedInWithMessage()) {
-    saveMessage(messageInputElement.value)
+  if (message && checkSignedInWithMessage()) {
+    saveMessage(message)
     .then(function() {
       // Clear message text field and re-enable the SEND button.
       resetMaterialTextfield(messageInputElement);
       toggleButton();
-    });
+    })
+    .then(function() {
+      let phoneNumber = getNumber();
+      return sendToWpp(phoneNumber, message);
+    })
   }
 }
 
