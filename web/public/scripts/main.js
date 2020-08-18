@@ -100,53 +100,43 @@ function loginRoom(){
     });
 }
 var getnumber;
+
+// returns the current phone number in scope
 function getNumber(){
-  var query = firebase.firestore().collection(string);
-  query.onSnapshot(function(snapshot){
-    snapshot.docChanges().forEach(function(change){
-      if(change.doc.data().whatsapp === 'wpp'){
-        getnumber = change.doc.data().name;
-      }
-    });
-  });
   return getnumber;
 }
 
-function sendToWpp(){
-    
-  var query = firebase.firestore().collection(string).orderBy('timestamp', 'desc').limit(5);
-    
-    query.onSnapshot(function(snapshot){
-      snapshot.docChanges().forEach(function(change){
-        if(change.doc.data().to === 'whatsapp'){
-          console.log(getNumber()+' enviaria: '+change.doc.data().text)
-          const accountSid = 'ACaadc87f8b76f27ae737abf22591006a6';
-          const authToken = 'c9cc11a3e519ee3748c80720c5b3e5a5';  
-          const client = require('twilio')(accountSid, authToken);
-          client.messages
-            .create({
-                from: 'whatsapp:+14155238886',
-                body: change.doc.data().text,
-                to: getNumber(),
-                })
-                .then(message => console.log(message.sid));
-
-          }
-      });
-    });
+// Sends message through Whatsapp to the specified phone number
+function sendToWpp(phoneNumber, message){
+  // Calls the sendToWhatsApp cloud function
+  const sendToWhatsappFn = firebase.functions().httpsCallable('sendToWhatsApp');
+  return sendToWhatsappFn({
+    from: 'whatsapp:+14155238886',
+    body: message,
+    to: phoneNumber,
+  })
+  .catch(err => {
+    console.error('Error sending message to whatsApp client ', err);
+  });
 }
 
 // Saves a new message on the Cloud Firestore.
 function saveMessage(messageText) {
 
+  let phoneNumber = getNumber();
   // Add a new message entry to the Firebase database.
-    return firebase.firestore().collection(string).add({
-    to: 'whatsapp',  
+  return firebase.firestore().collection(string).add({
+    to: 'whatsapp',
+    toNumber: phoneNumber,
     name: getUserName(),
     text: messageText,
     profilePicUrl: getProfilePicUrl(),
     timestamp: firebase.firestore.FieldValue.serverTimestamp()
-  }).catch(function(error) {
+  })
+  .then(() => {
+    return sendToWpp(phoneNumber, messageText);
+  })
+  .catch(function(error) {
     console.error('Error writing new message to Firebase Database', error);
   });
 }
@@ -169,9 +159,9 @@ function loadMessages() {
         var message = change.doc.data();
         displayMessage(change.doc.id, message.timestamp, message.name,
                       message.text, message.profilePicUrl, message.imageUrl);
-      }
-      if (change.doc.data().to === 'whatsapp'){
-        sendToWpp();
+        if (change.doc.data().whatsapp === 'wpp') {
+          getnumber = change.doc.data().name;
+        }
       }
     });
   });
@@ -249,7 +239,8 @@ function onMessageFormSubmit(e) {
   e.preventDefault();
   // Check that the user entered a message and is signed in.
   if (messageInputElement.value && checkSignedInWithMessage()) {
-    saveMessage(messageInputElement.value).then(function() {
+    saveMessage(messageInputElement.value)
+    .then(function() {
       // Clear message text field and re-enable the SEND button.
       resetMaterialTextfield(messageInputElement);
       toggleButton();
