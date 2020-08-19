@@ -53,51 +53,64 @@ function getCollection1() {
  }
 
 function loginRoom(){
-  const db = firebase.firestore();
+  var db = firebase.firestore().collection('logincontrol');
+      const collection1 = getUserName()+'1';
+      const collection2 = getUserName()+'2';
+      const collection3 = getUserName()+'3';
+      const collection4 = getUserName()+'4';
+      const collection5 = getUserName()+'5';
+if(db.doc(getUserName()).exists){
+ return
+}else{
+      db.doc(getUserName()).set({
+        name: getUserName(),
+        text: 'login',
+        [collection1]: 'false',
+        [collection2]: 'false',
+        [collection3]: 'false',
+        [collection4]: 'false',
+        [collection5]: 'false',
+        profilePicUrl: getProfilePicUrl(),
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      }).catch(function(error) {
+        console.error('Error writing new message to Firebase Database', error);
+      });
+
+      firebase.firestore().collection(getUserName()+'1').add({
+        text: 'login',
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      }).catch(function(error) {
+        console.error('Error writing new message to Firebase Database', error);
+      });
     
-  db.collection('logincontrol').add({
-    name: getUserName(),
-    text: 'login',
-    profilePicUrl: getProfilePicUrl(),
-    timestamp: firebase.firestore.FieldValue.serverTimestamp()
-  }).catch(function(error) {
-    console.error('Error writing new message to Firebase Database', error);
-  });
-
-    db.collection(getUserName()+'1').add({
-      text: 'login',
-      timestamp: firebase.firestore.FieldValue.serverTimestamp()
-    }).catch(function(error) {
-      console.error('Error writing new message to Firebase Database', error);
-    });
-
-    db.collection(getUserName()+'2').add({
-      text: 'login',
-      timestamp: firebase.firestore.FieldValue.serverTimestamp()
-    }).catch(function(error) {
-      console.error('Error writing new message to Firebase Database', error);
-    });
-
-    db.collection(getUserName()+'3').add({
-      text: 'login',
-      timestamp: firebase.firestore.FieldValue.serverTimestamp()
-    }).catch(function(error) {
-      console.error('Error writing new message to Firebase Database', error);
-    });
-
-    db.collection(getUserName()+'4').add({
-      text: 'login',
-      timestamp: firebase.firestore.FieldValue.serverTimestamp()
-    }).catch(function(error) {
-      console.error('Error writing new message to Firebase Database', error);
-    });
-
-    db.collection(getUserName()+'5').add({
-      text: 'login',
-      timestamp: firebase.firestore.FieldValue.serverTimestamp()
-    }).catch(function(error) {
-      console.error('Error writing new message to Firebase Database', error);
-    });
+      firebase.firestore().collection(getUserName()+'2').add({
+        text: 'login',
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      }).catch(function(error) {
+        console.error('Error writing new message to Firebase Database', error);
+      });
+    
+      firebase.firestore().collection(getUserName()+'3').add({
+        text: 'login',
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      }).catch(function(error) {
+        console.error('Error writing new message to Firebase Database', error);
+      });
+    
+      firebase.firestore().collection(getUserName()+'4').add({
+        text: 'login',
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      }).catch(function(error) {
+        console.error('Error writing new message to Firebase Database', error);
+      });
+    
+      firebase.firestore().collection(getUserName()+'5').add({
+        text: 'login',
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      }).catch(function(error) {
+        console.error('Error writing new message to Firebase Database', error);
+      });
+}
 }
 var getnumber;
 
