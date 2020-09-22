@@ -33,7 +33,7 @@ function getUserName() {
 function isUserSignedIn() {
   return !!firebase.auth().currentUser;
 }
-var getnumber;
+
 var string;
 
 function getCollection1() {
@@ -62,14 +62,14 @@ function loginRoom(){
 if(db.doc(getUserName()).exists){
  return
 }else{
-      db.doc(getUserName()).set({
+      firebase.firestore().collection('logincontrol').doc(getUserName()).set({
         name: getUserName(),
         text: 'login',
-        [collection1]: 'false',
-        [collection2]: 'false',
-        [collection3]: 'false',
-        [collection4]: 'false',
-        [collection5]: 'false',
+        [collection1]: false,
+        [collection2]: false,
+        [collection3]: false,
+        [collection4]: false,
+        [collection5]: false,
         profilePicUrl: getProfilePicUrl(),
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
       }).catch(function(error) {
