@@ -50,7 +50,7 @@
           Sair
         </button>
         <button hidden id="sign-in" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
-          <i class="material-icons">account_circle</i>Logar
+          <i class="material-icons">account_circle</i>Logar com conta Google
         </button>
       </div>
     </div>
@@ -58,7 +58,51 @@
 
   <main class="mdl-layout__content mdl-color--grey-100">
     <div id="messages-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
-
+        <div hidden id="login-register" class="login-register">
+            <div class="content-popup">
+              <h1>ChatOne - Goop</h1>
+              <form id="loginForm" action="">
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                      <input class="mdl-textfield__input" type="text" id="userEmail" autocomplete="off">
+                      <label class="mdl-textfield__label" for="message">Email</label>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="password" id="userPassword" autocomplete="off">
+                        <label class="mdl-textfield__label" for="message">Senha</label>
+                      </div>
+                      <div>
+                      <button onclick="signInEmail() ; return false" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                          Login
+                        </button>
+                        <button onclick="hideLoginForm() ; return false" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" style="margin-left:5px">
+                            Cadastrar-se
+                          </button>
+                      </div>
+              </form>
+              <form hidden id="signUpForm" action="">
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                      <input class="mdl-textfield__input" type="text" id="userName">
+                      <label class="mdl-textfield__label">Nome Completo</label>
+                    </div>
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                      <input class="mdl-textfield__input" type="text" id="userEmail1">
+                      <label class="mdl-textfield__label">Email</label>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="password" id="userPassword1">
+                        <label class="mdl-textfield__label">Senha</label>
+                      </div>
+                      <div>
+                      <button onclick="hideSignUpForm() ; return false" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                          Login
+                        </button>
+                        <button type="submit" onclick="createUser() ; return false" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" style="margin-left:5px">
+                            Confirmar Cadastro
+                          </button>
+                      </div>
+              </form>
+            </div>
+          </div>
       <!-- Messages container -->
       <div  id="messages-card" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--6-col-desktop">
         <div class="mdl-card__supporting-text mdl-color-text--grey-600">
@@ -67,7 +111,7 @@
           <form id="message-form" action="#">
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
               <input class="mdl-textfield__input" type="text" id="message" autocomplete="off">
-              <label class="mdl-textfield__label" for="message">Message...</label>
+              <label class="mdl-textfield__label" for="message">Mensagem...</label>
             </div>
             <button id="submit" disabled type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
               Enviar

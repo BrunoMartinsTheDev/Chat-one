@@ -19,6 +19,53 @@ function initFirebaseAuth() {
   firebase.auth().onAuthStateChanged(authStateObserver);
 }
 
+function hideSignUpForm(){
+  document.getElementById('signUpForm').setAttribute('hidden', 'true');
+  document.getElementById('loginForm').removeAttribute('hidden');
+}
+
+function hideLoginForm(){
+  document.getElementById('signUpForm').removeAttribute('hidden');
+  document.getElementById('loginForm').setAttribute('hidden','true');
+}
+
+var username;
+
+function signInEmail(){
+  var email = document.getElementById('userEmail').value;
+  var password = document.getElementById('userPassword').value;
+
+  firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  console.log('error')
+  // ...
+});
+
+}
+
+function createUser(){
+  var email = document.getElementById('userEmail1').value;
+  var password = document.getElementById('userPassword1').value;
+  username = document.getElementById('userName').value;
+
+  firebase.auth().createUserWithEmailAndPassword(email, password).then(function(user) {
+    user.displayName = username;
+ })
+.catch(function(error) {
+  if(errorCode === 'auth/email-already-in-use'){
+    alert('Já existe uma conta com esse email');
+    }else{
+      alert(errorMessage);
+  }
+       // ...
+});
+
+}
+
+
+
 // Returns the signed-in user's profile Pic URL.
 function getProfilePicUrl() {
   return firebase.auth().currentUser.photoURL || '/images/profile_placeholder.png';
@@ -268,9 +315,9 @@ function authStateObserver(user) {
   if (user) { // User is signed in!
     // Get the signed-in user's profile pic and name.
     var profilePicUrl = getProfilePicUrl();
-    var userName = getUserName();
+    var userName = firebase.auth().currentUser.displayName;
 
-    loginRoom();
+    
 
     // Set the user's profile pic and name.
     userPicElement.style.backgroundImage = 'url(' + addSizeToGoogleProfilePic(profilePicUrl) + ')';
@@ -278,19 +325,22 @@ function authStateObserver(user) {
 
     // Show user's profile and sign-out button.
     userNameElement.removeAttribute('hidden');
-    userPicElement.removeAttribute('hidden');
     signOutButtonElement.removeAttribute('hidden');
+    document.getElementById("login-register").setAttribute('hidden', 'true');
 
     // Hide sign-in button.
     signInButtonElement.setAttribute('hidden', 'true');
 
     // We save the Firebase Messaging Device token and enable notifications.
     saveMessagingDeviceToken();
+    loginRoom();
+    
   } else { // User is signed out!
     // Hide user's profile and sign-out button.
     userNameElement.setAttribute('hidden', 'true');
     userPicElement.setAttribute('hidden', 'true');
     signOutButtonElement.setAttribute('hidden', 'true');
+    document.getElementById("login-register").removeAttribute('hidden');
 
     // Show sign-in button.
     signInButtonElement.removeAttribute('hidden');
