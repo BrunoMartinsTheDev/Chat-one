@@ -59,22 +59,27 @@
   <main class="mdl-layout__content mdl-color--grey-100">
     <div id="messages-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
         <div hidden id="login-register" class="login-register">
-            <div class="content-popup">
+          <div class="content-popup">
               <h1>ChatOne - Goop</h1>
+              <h5>Você deve logar para acessar o Chat</h5>
+              <div hidden id="cadastro">
+                <h1>Cadastro efetuado com sucesso!</h1>
+                <button onclick="reloadPage() ; return false" >Logar</button>
+              </div>
               <form id="loginForm" action="">
                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                       <input class="mdl-textfield__input" type="text" id="userEmail" autocomplete="off">
                       <label class="mdl-textfield__label" for="message">Email</label>
                     </div>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <div id="email-input" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class="mdl-textfield__input" type="password" id="userPassword" autocomplete="off">
                         <label class="mdl-textfield__label" for="message">Senha</label>
                       </div>
                       <div>
-                      <button onclick="signInEmail() ; return false" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                      <button id="button-form" onclick="signInEmail() ; return false" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
                           Login
                         </button>
-                        <button onclick="hideLoginForm() ; return false" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" style="margin-left:5px">
+                        <button id="button-form" onclick="hideLoginForm() ; return false" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" style="margin-left:5px">
                             Cadastrar-se
                           </button>
                       </div>
@@ -93,10 +98,10 @@
                         <label class="mdl-textfield__label">Senha</label>
                       </div>
                       <div>
-                      <button onclick="hideSignUpForm() ; return false" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                      <button id="button-form" onclick="hideSignUpForm() ; return false" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
                           Login
                         </button>
-                        <button type="submit" onclick="createUser() ; return false" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" style="margin-left:5px">
+                        <button id="button-form" type="submit" onclick="createUser() ; return false" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" style="margin-left:5px">
                             Confirmar Cadastro
                           </button>
                       </div>

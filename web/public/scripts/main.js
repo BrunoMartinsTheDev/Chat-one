@@ -34,6 +34,7 @@ var username;
 function signInEmail(){
   var email = document.getElementById('userEmail').value;
   var password = document.getElementById('userPassword').value;
+  username = document.getElementById('userName').value;
 
   firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
   // Handle Errors here.
@@ -51,8 +52,11 @@ function createUser(){
   username = document.getElementById('userName').value;
 
   firebase.auth().createUserWithEmailAndPassword(email, password).then(function(user) {
-    user.displayName = username;
- })
+    user.user.updateProfile({
+      displayName:username
+    });
+    console.log(getUserName())
+  })
 .catch(function(error) {
   if(errorCode === 'auth/email-already-in-use'){
     alert('Já existe uma conta com esse email');
@@ -179,6 +183,9 @@ function sendToWpp(phoneNumber, message){
     console.error('Error sending message to whatsApp client ', err);
   });
 }
+function reloadPage(){
+  location.reload();
+}
 
 // Saves a new message on the Cloud Firestore.
 function saveMessage(messageText) {
@@ -254,6 +261,8 @@ function saveMessagingDeviceToken() {
   }).catch(function(error){
     console.error('Unable to get messaging token.', error);
   });
+  loginRoom();
+  
 }
 
 // Requests permissions to show notifications.
@@ -313,12 +322,20 @@ function onMessageFormSubmit(e) {
 // Triggers when the auth state change for instance when the user signs-in or signs-out.
 function authStateObserver(user) {
   if (user) { // User is signed in!
+    
+    firebase.auth().currentUser.updateProfile({
+      displayName:username
+    }).then(function() {
+      console.log('seu nome e: '+getUserName())  // Update successful.
+    }).catch(function(error) {
+      // An error happened.
+    });
+
     // Get the signed-in user's profile pic and name.
     var profilePicUrl = getProfilePicUrl();
-    var userName = firebase.auth().currentUser.displayName;
+    var userName = getUserName();
 
-    
-
+    console.log("nomedeusuario: "+getUserName());
     // Set the user's profile pic and name.
     userPicElement.style.backgroundImage = 'url(' + addSizeToGoogleProfilePic(profilePicUrl) + ')';
     userNameElement.textContent = userName;
@@ -330,11 +347,13 @@ function authStateObserver(user) {
 
     // Hide sign-in button.
     signInButtonElement.setAttribute('hidden', 'true');
-
+    
     // We save the Firebase Messaging Device token and enable notifications.
     saveMessagingDeviceToken();
-    loginRoom();
     
+    //set collections in firebase 
+    loginRoom();
+
   } else { // User is signed out!
     // Hide user's profile and sign-out button.
     userNameElement.setAttribute('hidden', 'true');
@@ -345,6 +364,8 @@ function authStateObserver(user) {
     // Show sign-in button.
     signInButtonElement.removeAttribute('hidden');
   }
+ 
+  
 }
 
 // Returns true if user is signed-in. Otherwise false and displays a message.
